@@ -86,7 +86,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.photoViewHol
 //                        .into(ivPhoto);
 //            }
             Glide.with(mCtx)
-                    .load(aModel.getPHOTO_URL())
+                    .load(aModel.getPHOTO_URL() + ".jpg")
                     .into(ivPhoto);
             divDetail.setOnClickListener(new ImageZoomListener(mCtx,ivPhoto,aModel.getPHOTO_URL(),aModel.getPHOTO_TITLE()));
         }

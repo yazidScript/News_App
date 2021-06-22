@@ -74,7 +74,7 @@ public class PhotoDetailActivity extends AppCompatActivity {
 
         Toast.makeText(PhotoDetailActivity.this, "image path : " + image, Toast.LENGTH_SHORT).show();
         if (image.contains("https")) {
-            Picasso.with(this).load(image).into(imageView);
+            Picasso.with(this).load(image + ".jpg").into(imageView);
         }
         else {
             imageView.setImageURI(Uri.parse(image));
