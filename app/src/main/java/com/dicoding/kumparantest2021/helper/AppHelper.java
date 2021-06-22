@@ -81,7 +81,7 @@ public final class AppHelper {
         item.setPHOTO_ID(rowData.optInt("id"));
         item.setALBUM_ID(rowData.optInt("albumId"));
         item.setPHOTO_TITLE(rowData.optString("title"));
-        item.setPHOTO_URL(rowData.optString("thumbnailUrl"));
+        item.setPHOTO_URL(rowData.optString("url"));
 
         return item;
     }

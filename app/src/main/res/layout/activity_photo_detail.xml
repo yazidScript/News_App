@@ -35,7 +35,7 @@
         android:layout_gravity="top"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/_10ssp"
-        android:paddingBottom="@dimen/_10ssp"
+        android:paddingTop="@dimen/_10ssp"
         android:paddingRight="@dimen/_10ssp">
 
         <com.dicoding.kumparantest2021.ui.CustomTextViewBold

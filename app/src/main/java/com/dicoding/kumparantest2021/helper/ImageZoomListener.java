@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.dc024.dsl.application.activity.ImageZoomActivity;
+import com.dicoding.kumparantest2021.activity.PhotoDetailActivity;
 
 /**
  * Created by rr on 7/25/18.
@@ -18,12 +18,11 @@ public class ImageZoomListener implements View.OnClickListener {
     private String title;
     private String info;
 
-    public ImageZoomListener(Context context, ImageView imageView, String drawable, String title, String info) {
+    public ImageZoomListener(Context context, ImageView imageView, String drawable, String title) {
         this.imageView = imageView;
         this.drawable = drawable;
         this.context = context;
         this.title = title;
-        this.info = info;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class ImageZoomListener implements View.OnClickListener {
         if(this.drawable == null) {
             return;
         }
-        Intent intent = new Intent(context, ImageZoomActivity.class);
+        Intent intent = new Intent(context, PhotoDetailActivity.class);
         int[] screenLocation = new int[2];
         imageView.getLocationOnScreen(screenLocation);
 

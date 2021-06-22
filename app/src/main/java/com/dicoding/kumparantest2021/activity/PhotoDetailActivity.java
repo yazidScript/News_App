@@ -10,12 +10,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dicoding.kumparantest2021.R;
 import com.jsibbold.zoomage.ZoomageView;
@@ -53,14 +55,25 @@ public class PhotoDetailActivity extends AppCompatActivity {
         mThumbnailWidth = bundle.getInt("width");
         mThumbnailHeight = bundle.getInt("height");
 
+        String title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
+        Log.d("TAG", "onCreate: "+image);
 
         if(image == null)   finish();
 
+        titleTextView = (TextView) findViewById(R.id.title);
+        if(title != null && title.length() > 0) {
+            titleTextView.setText(Html.fromHtml(title));
+            titleTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            titleTextView.setVisibility(View.GONE);
+        }
+
         imageView = (ZoomageView) findViewById(R.id.grid_item_image);
 
-        //Toast.makeText(ImageZoomActivity.this, "image path : " + image, Toast.LENGTH_SHORT).show();
-        if (image.contains("http")) {
+        Toast.makeText(PhotoDetailActivity.this, "image path : " + image, Toast.LENGTH_SHORT).show();
+        if (image.contains("https")) {
             Picasso.with(this).load(image).into(imageView);
         }
         else {

@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.dicoding.kumparantest2021.R;
 import com.dicoding.kumparantest2021.helper.AppHelper;
 import com.dicoding.kumparantest2021.helper.Config;
+import com.dicoding.kumparantest2021.helper.ImageZoomListener;
 import com.dicoding.kumparantest2021.model.PhotoModel;
 import com.dicoding.kumparantest2021.model.PostModel;
 import com.squareup.picasso.Picasso;
@@ -74,22 +75,20 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.photoViewHol
         }
 
         private void bind(final PhotoModel aModel){
-//            tvTitle.setText(aModel.getPHOTO_TITLE());
-//            Picasso.with(mCtx).load(aModel.getPHOTO_URL()).into(ivPhoto);
-            Glide.with(mCtx)
-                    .load(aModel.getPHOTO_URL())
-                    .into(ivPhoto);
-
-            divDetail.setOnClickListener(new View.OnClickListener() {
-                private void doNothing() {
-
-                }
-
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+//            if(aModel.getPHOTO_URL().contains(Config.UPLOAD_FOLDER)) {
+                Picasso.with(mCtx)
+                        .load(aModel.getPHOTO_URL())
+                        .into(ivPhoto);
+//            }
+//            else {
+                Picasso.with(mCtx)
+                        .load(aModel.getPHOTO_URL())
+                        .into(ivPhoto);
+//            }
+//            Glide.with(mCtx)
+//                    .load(aModel.getPHOTO_URL())
+//                    .into(ivPhoto);
+            divDetail.setOnClickListener(new ImageZoomListener(mCtx,ivPhoto,aModel.getPHOTO_URL(),aModel.getPHOTO_TITLE()));
         }
     }
 }
