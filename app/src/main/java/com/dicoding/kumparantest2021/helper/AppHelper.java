@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.dicoding.kumparantest2021.activity.PhotoActivity;
-import com.dicoding.kumparantest2021.activity.PhotoDetailActivity;
 import com.dicoding.kumparantest2021.activity.PostDetailActivity;
 import com.dicoding.kumparantest2021.activity.UserDetailActivity;
 import com.dicoding.kumparantest2021.model.AlbumModel;

@@ -76,18 +76,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.photoViewHol
 
         private void bind(final PhotoModel aModel){
 //            if(aModel.getPHOTO_URL().contains(Config.UPLOAD_FOLDER)) {
-                Picasso.with(mCtx)
-                        .load(aModel.getPHOTO_URL())
-                        .into(ivPhoto);
+//                Picasso.with(mCtx)
+//                        .load(aModel.getPHOTO_URL())
+//                        .into(ivPhoto);
 //            }
 //            else {
-                Picasso.with(mCtx)
-                        .load(aModel.getPHOTO_URL())
-                        .into(ivPhoto);
+//                Picasso.with(mCtx)
+//                        .load(aModel.getPHOTO_URL())
+//                        .into(ivPhoto);
 //            }
-//            Glide.with(mCtx)
-//                    .load(aModel.getPHOTO_URL())
-//                    .into(ivPhoto);
+            Glide.with(mCtx)
+                    .load(aModel.getPHOTO_URL())
+                    .into(ivPhoto);
             divDetail.setOnClickListener(new ImageZoomListener(mCtx,ivPhoto,aModel.getPHOTO_URL(),aModel.getPHOTO_TITLE()));
         }
     }
