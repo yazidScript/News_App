@@ -17,7 +17,7 @@
         <activity android:name=".activity.PhotoActivity"></activity>
         <activity android:name=".activity.PhotoDetailActivity" />
         <activity android:name=".activity.UserDetailActivity" />
-        <activity android:name=".activity.DetailPostActivity">
+        <activity android:name=".activity.PostDetailActivity">
 
         </activity>
         <activity android:name=".activity.PostActivity">

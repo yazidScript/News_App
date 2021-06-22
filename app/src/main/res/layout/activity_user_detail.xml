@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1D4A4A4A"
     tools:context=".activity.UserDetailActivity">
 
     <RelativeLayout
@@ -47,9 +46,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="0sp"
+        android:paddingTop="@dimen/_6ssp"
+        android:paddingBottom="@dimen/_6ssp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
         android:layout_marginTop="10dp"
         android:background="#fff"
         android:orientation="vertical">
@@ -154,6 +161,16 @@
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:layout_marginTop="6sp"
+            android:layout_marginBottom="6sp"
+            android:layout_marginLeft="8sp"
+            android:layout_marginRight="8sp"
+            android:background="#b1b1b1"
+            android:visibility="visible"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40sp"
@@ -189,6 +206,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <com.dicoding.kumparantest2021.ui.CustomTextViewRegular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Company name "
+                        android:textSize="11.7sp"
+                        android:textColor="#4E4E4E"/>
+
                     <com.dicoding.kumparantest2021.ui.CustomTextViewBold
                         android:id="@+id/tvUserCompany"
                         android:layout_width="wrap_content"
@@ -215,7 +239,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_baseline_location_on_24"
+                android:src="@drawable/ic_baseline_home_24"
                 android:layout_gravity="top"
                 app:tint="#b1b1b1" />
 
@@ -239,6 +263,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <com.dicoding.kumparantest2021.ui.CustomTextViewRegular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address on "
+                        android:textSize="11.7sp"
+                        android:textColor="#4E4E4E"/>
+
                     <com.dicoding.kumparantest2021.ui.CustomTextViewBold
                         android:id="@+id/tvUserAddress"
                         android:layout_width="wrap_content"
@@ -254,6 +285,23 @@
             </LinearLayout>
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:gravity="left|center_vertical"
+            android:visibility="visible">
+
+            <com.dicoding.kumparantest2021.ui.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8ssp"
+                android:text="Albums"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="@dimen/_13ssp" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -261,6 +309,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="0sp"
+        android:background="#000"
         android:visibility="visible">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -268,6 +317,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
+            android:background="#000"
             android:layout_marginTop="@dimen/_2ssp"
             tools:listitem="@layout/list_row_album">
         </androidx.recyclerview.widget.RecyclerView>

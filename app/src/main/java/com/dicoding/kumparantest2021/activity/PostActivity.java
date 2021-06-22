@@ -55,7 +55,6 @@ public class PostActivity extends AppCompatActivity implements SwipeRefreshLayou
         rvListPost.setHasFixedSize(true);
         rvListPost.setLayoutManager(new LinearLayoutManager(this));
 
-
     }
 
     public void show(){
@@ -96,8 +95,11 @@ public class PostActivity extends AppCompatActivity implements SwipeRefreshLayou
                                             @Override
                                             public void onResponse(JSONObject response) {
                                                 try {
+                                                    item.setUSER_ID(response.optInt("id"));
                                                     item.setUSER_NAME(response.optString("name"));
                                                     item.setUSER_EMAIL(response.optString("email"));
+                                                    JSONObject address = response.getJSONObject("address");
+                                                    item.setUSER_ADDRESS(address.optString("city"));
                                                     JSONObject company = response.getJSONObject("company");
                                                     item.setUSER_COMPANY_NAME(company.optString("name"));
                                                     mList.add(item);
