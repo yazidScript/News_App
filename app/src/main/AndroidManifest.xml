@@ -14,17 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.PhotoDetailActivity"></activity>
+        <activity android:name=".activity.PhotoActivity"></activity>
+        <activity android:name=".activity.PhotoDetailActivity" />
         <activity android:name=".activity.UserDetailActivity" />
-        <activity android:name=".activity.DetailPostActivity" >
+        <activity android:name=".activity.DetailPostActivity">
+
+        </activity>
+        <activity android:name=".activity.PostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.PostActivity">
-
         </activity>
     </application>
 

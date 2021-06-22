@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -32,17 +33,32 @@ import java.util.ArrayList;
 
 public class DetailPostActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private ImageView ivBack;
+    private TextView tvUserName, tvUserCompany, tvPostTitle, tvPostBody;
     private SwipeRefreshLayout swipeRefresh;
     private RecyclerView rvListComment;
 
     private ArrayList<CommentModel> mList = new ArrayList<>();
     private CommentAdapter mAdapter;
 
+    private int U_ID;
+    private PostModel model;
+    private int P_ID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
         binding();
+
+        model = getIntent().getExtras().getParcelable("extra_post");
+        if (/*bundle*/ model != null){
+            P_ID = model.getPOST_ID();
+
+            tvPostTitle.setText(model.getPOST_TITLE());
+            tvPostBody.setText(model.getPOST_BODY());
+            tvUserName.setText(model.getUSER_NAME());
+            tvUserCompany.setText(model.getUSER_COMPANY_NAME());
+        }
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.post(new Runnable() {
             private void doNothing(){
@@ -65,7 +81,7 @@ public class DetailPostActivity extends AppCompatActivity implements SwipeRefres
 
     public void getCommentList(){
         swipeRefresh.setRefreshing(true);
-        AndroidNetworking.get(Config.BASE_URL + "comments")
+        AndroidNetworking.get(Config.BASE_URL + "comments?postId=" + P_ID)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(((Http) getApplication()).getOkHttpClient())
                 .build()
@@ -73,6 +89,12 @@ public class DetailPostActivity extends AppCompatActivity implements SwipeRefres
                     @Override
                     public void onResponse(JSONArray response) {
                         swipeRefresh.setRefreshing(false);
+                        if (mAdapter != null) {
+                            mAdapter.clearData();
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        if (mList != null)  mList.clear();
+
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
@@ -103,6 +125,10 @@ public class DetailPostActivity extends AppCompatActivity implements SwipeRefres
     }
 
     private void binding(){
+        tvPostTitle = findViewById(R.id.tvPostTitle);
+        tvPostBody = findViewById(R.id.tvPostBody);
+        tvUserName = findViewById(R.id.tvUserName);
+        tvUserCompany = findViewById(R.id.tvUserCompany);
         ivBack = findViewById(R.id.ivBack);
         ivBack.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {

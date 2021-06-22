@@ -13,9 +13,11 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dicoding.kumparantest2021.Http;
 import com.dicoding.kumparantest2021.R;
 import com.dicoding.kumparantest2021.adapter.PostAdapter;
+import com.dicoding.kumparantest2021.helper.AppHelper;
 import com.dicoding.kumparantest2021.helper.Config;
 import com.dicoding.kumparantest2021.model.PostModel;
 
@@ -53,40 +55,6 @@ public class PostActivity extends AppCompatActivity implements SwipeRefreshLayou
         rvListPost.setHasFixedSize(true);
         rvListPost.setLayoutManager(new LinearLayoutManager(this));
 
-        AndroidNetworking.get(Config.BASE_URL + "users")
-                .setPriority(Priority.LOW)
-                .setOkHttpClient(((Http) getApplication()).getOkHttpClient())
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        swipeRefresh.setRefreshing(false);
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                item.setUSER_NAME(jsonObject.optString("username"));
-                                JSONObject company = jsonObject.getJSONObject("company");
-                                item.setUSER_COMPANY_NAME(company.optString("name"));
-                                mList.add(item);
-                                show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        swipeRefresh.setRefreshing(false);
-                        Toast.makeText(PostActivity.this, Config.TOAST_AN_ERROR, Toast.LENGTH_SHORT).show();
-                        Log.d("ZEE", "onError: " + anError.getErrorBody());
-                        Log.d("ZEE", "onError: " + anError.getLocalizedMessage());
-                        Log.d("ZEE", "onError: " + anError.getErrorDetail());
-                        Log.d("ZEE", "onError: " + anError.getResponse());
-                        Log.d("ZEE", "onError: " + anError.getErrorCode());
-                    }
-                });
 
     }
 
@@ -95,26 +63,67 @@ public class PostActivity extends AppCompatActivity implements SwipeRefreshLayou
         rvListPost.setAdapter(mAdapter);
     }
 
-    final PostModel item = new PostModel();
+
     public void getPostList(){
         swipeRefresh.setRefreshing(true);
         AndroidNetworking.get(Config.BASE_URL + "posts")
+                .setTag("Test")
                 .setPriority(Priority.LOW)
-                .setOkHttpClient(((Http) getApplication()).getOkHttpClient())
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
                         swipeRefresh.setRefreshing(false);
+                        if (mAdapter != null) {
+                            mAdapter.clearData();
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        if (mList != null)  mList.clear();
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
+                                final PostModel item = new PostModel();
                                 item.setPOST_ID(jsonObject.optInt("id"));
                                 item.setPOST_TITLE(jsonObject.optString("title"));
                                 item.setPOST_BODY(jsonObject.optString("body"));
+                                item.setUSER_ID(jsonObject.getInt("userId"));
+
+                                AndroidNetworking.get(Config.BASE_URL + "users/" + item.getUSER_ID())
+                                        .setPriority(Priority.LOW)
+                                        .setTag("Test")
+                                        .build()
+                                        .getAsJSONObject(new JSONObjectRequestListener() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+                                                try {
+                                                    item.setUSER_NAME(response.optString("name"));
+                                                    item.setUSER_EMAIL(response.optString("email"));
+                                                    JSONObject company = response.getJSONObject("company");
+                                                    item.setUSER_COMPANY_NAME(company.optString("name"));
+                                                    mList.add(item);
+                                                    show();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onError(ANError anError) {
+                                                swipeRefresh.setRefreshing(false);
+                                                Toast.makeText(PostActivity.this, Config.TOAST_AN_ERROR, Toast.LENGTH_SHORT).show();
+                                                Log.d("ZEE", "onError: " + anError.getErrorBody());
+                                                Log.d("ZEE", "onError: " + anError.getLocalizedMessage());
+                                                Log.d("ZEE", "onError: " + anError.getErrorDetail());
+                                                Log.d("ZEE", "onError: " + anError.getResponse());
+                                                Log.d("ZEE", "onError: " + anError.getErrorCode());
+                                            }
+                                        });
+
 //                                item.setUSER_ID(jsonObject.optInt("userId"));
-                                mList.add(item);
-                                show();
+//                                mList.add(item);
+//                                show();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

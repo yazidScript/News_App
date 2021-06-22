@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.kumparantest2021.R;
+import com.dicoding.kumparantest2021.helper.AppHelper;
 import com.dicoding.kumparantest2021.model.PostModel;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ItemViewHolder
 
                 @Override
                 public void onClick(View view) {
-//                    AppHelper.goToOrderDetail(mCtx, aModel);
+                    AppHelper.goToPostDetail(mCtx, aModel);
                 }
             });
         }
